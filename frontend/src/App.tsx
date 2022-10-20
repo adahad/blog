@@ -1,14 +1,13 @@
+import Posts from "./components/Posts/Posts";
 import testData from "./tests/testData.json";
-import { Post } from "./types";
+import type { Post } from "./types";
 
 function App() {
   const testPosts: Post[] = testData.samplePosts;
 
   return (
     <div>
-      {testPosts.map((post) => (
-        <div key={post.id}>{post.content}</div>
-      ))}
+      <Posts posts={testPosts} />
     </div>
   );
 }
