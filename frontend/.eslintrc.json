@@ -23,6 +23,7 @@
   },
   "plugins": ["react", "jest", "promise", "@typescript-eslint"],
   "rules": {
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "prefer-destructuring": "off"
   }
 }

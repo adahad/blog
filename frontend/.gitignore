@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 TODO
+jest.config.js
 
 # Editor directories and files
 .vscode/*

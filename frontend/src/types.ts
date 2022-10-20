@@ -2,6 +2,7 @@
 interface Post {
   title: string;
   content: string;
+  id: string;
 }
 
 export type { Post };
