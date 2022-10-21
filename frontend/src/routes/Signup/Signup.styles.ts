@@ -1,13 +1,13 @@
 import { createStyles } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
-  login: {
-    height: "100%",
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+  signup: {
     border: `1px solid ${theme.colors.gray[2]}`,
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
   },
 }));
 
