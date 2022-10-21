@@ -2,7 +2,7 @@ import { createStyles } from "@mantine/core";
 
 const useStyles = createStyles(() => ({
   home: {
-    padding: `1em 5em`,
+    padding: `5% 25%`,
   },
 }));
 
