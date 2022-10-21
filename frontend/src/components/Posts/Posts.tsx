@@ -1,5 +1,6 @@
 import { SimpleGrid } from "@mantine/core";
 import type { Post as IPost } from "../../types";
+import useStyles from "./Posts.styles";
 import Post from "./Post/Post";
 
 interface PostsProps {
@@ -7,8 +8,9 @@ interface PostsProps {
 }
 
 function Posts({ posts }: PostsProps) {
+  const { classes } = useStyles();
   return (
-    <SimpleGrid cols={3}>
+    <SimpleGrid className={classes.posts} cols={3} spacing="xl">
       {posts.map((post) => (
         <Post key={post.id} title={post.title} content={post.content} />
       ))}
