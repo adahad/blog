@@ -16,12 +16,15 @@
     "plugin:promise/recommended",
     "plugin:prettier/recommended"
   ],
-  "type": "module",
   "overrides": [],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint", "jest", "promise"]
+  "plugins": ["@typescript-eslint", "jest", "promise"],
+  "rules": {
+    "prefer-destructuring": "off",
+    "no-console": "off"
+  }
 }

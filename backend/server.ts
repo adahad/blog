@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import { nanoid } from "nanoid";
 import * as testData from "./tests/testData.json";
 
-import { Post } from "./types";
+import { Post, isPostBase } from "./types";
 
 dotenv.config();
 
@@ -11,6 +11,9 @@ const app = express();
 app.use(express.json());
 
 const port = process.env.PORT;
+if (!port) {
+  throw new Error("No port provided");
+}
 
 let posts: Post[] = testData.samplePosts;
 
@@ -20,9 +23,9 @@ app.get("/", (request: Request, response: Response) => {
 
 app.get("/posts/:id", (request: Request, response: Response) => {
   const id = request.params.id;
-  const post = posts.find((post) => post.id === id);
-  if (post) {
-    response.json(post);
+  const queriedPost = posts.find((post) => post.id === id);
+  if (queriedPost) {
+    response.json(queriedPost);
   } else {
     response.status(404).end();
   }
@@ -35,9 +38,10 @@ app.delete("/posts/:id", (request: Request, response: Response) => {
 });
 
 app.post("/posts", (request: Request, response: Response) => {
-  const body = request.body;
-
-  if (!body.content || !body.title) {
+  if (!request.body) {
+    return response.status(400).json({ error: "No request body" });
+  }
+  if (!isPostBase(request.body)) {
     return response.status(400).json({ error: "Header or title missing" });
   }
 
@@ -48,7 +52,7 @@ app.post("/posts", (request: Request, response: Response) => {
   };
 
   posts = posts.concat(newPost);
-  response.json(posts);
+  return response.json(posts);
 });
 
 app.listen(port, () => {

@@ -4,4 +4,13 @@ interface Post {
   id: string;
 }
 
-export { Post };
+type PostBase = Omit<Post, "id">;
+
+function isPostBase(unknown: unknown): unknown is PostBase {
+  return (
+    (unknown as PostBase).title !== undefined &&
+    (unknown as PostBase).content !== undefined
+  );
+}
+
+export { Post, PostBase, isPostBase };
