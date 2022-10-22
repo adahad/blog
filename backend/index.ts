@@ -41,12 +41,10 @@ app.post("/posts", (request: Request, response: Response) => {
     return response.status(400).json({ error: "Header or title missing" });
   }
 
-  const id = nanoid();
-
   const newPost: Post = {
     title: request.body.title,
     content: request.body.content,
-    id,
+    id: nanoid(),
   };
 
   posts = posts.concat(newPost);
