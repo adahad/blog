@@ -12,7 +12,7 @@ const port = process.env.PORT;
 const testPosts: Post[] = testData.samplePosts;
 
 app.get("/", (request, response) => {
-  response.send(JSON.stringify(testPosts));
+  response.json(testPosts);
 });
 
 app.listen(port, () => {

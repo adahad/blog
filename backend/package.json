@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.ts",
     "test": "jest",
-    "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
+    "dev": "nodemon index.ts"
   },
   "author": "Ani Dahad",
   "license": "ISC",
@@ -29,6 +30,7 @@
     "nodemon": "^2.0.20",
     "prettier": "2.7.1",
     "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
     "typescript": "^4.8.4"
   },
   "dependencies": {
