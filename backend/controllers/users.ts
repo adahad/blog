@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import express, { NextFunction, Request, Response } from "express";
 import bcrypt from "bcrypt";
 import asyncHandler from "express-async-handler";
