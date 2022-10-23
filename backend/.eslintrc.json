@@ -25,6 +25,7 @@
   "plugins": ["@typescript-eslint", "jest", "promise"],
   "rules": {
     "prefer-destructuring": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "no-param-reassign": "off"
   }
 }
