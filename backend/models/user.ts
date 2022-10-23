@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 import { User } from "../types";
 
 const userSchema = new Schema<User>(
@@ -7,6 +7,12 @@ const userSchema = new Schema<User>(
     username: { type: String, required: true },
     passwordHash: { type: String, required: true },
     name: { type: String, required: true },
+    posts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post",
+      },
+    ],
   },
   {
     toJSON: {
@@ -18,6 +24,8 @@ const userSchema = new Schema<User>(
         delete returnedObject._id;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         delete returnedObject.__v;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        delete returnedObject.passwordHash;
       },
     },
   }

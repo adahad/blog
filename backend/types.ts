@@ -1,3 +1,5 @@
+import { Types } from "mongoose";
+
 interface Post {
   title: string;
   content: string;
@@ -7,6 +9,7 @@ interface User {
   username: string;
   passwordHash: string;
   name: string;
+  posts: Types.DocumentArray<Post>;
 }
 
 function isPost(unknown: unknown): unknown is Post {
