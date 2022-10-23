@@ -15,6 +15,9 @@ interface User {
 interface UserBase {
   username: string;
   password: string;
+}
+
+interface UserSignup extends UserBase {
   name: string;
 }
 
@@ -25,12 +28,19 @@ function isPost(unknown: unknown): unknown is Post {
   );
 }
 
-function isUserBase(unknown: unknown): unknown is UserBase {
+function isUserSignup(unknown: unknown): unknown is UserSignup {
   return (
-    (unknown as UserBase).username !== undefined &&
-    (unknown as UserBase).password !== undefined &&
-    (unknown as UserBase).name !== undefined
+    (unknown as UserSignup).username !== undefined &&
+    (unknown as UserSignup).password !== undefined &&
+    (unknown as UserSignup).name !== undefined
   );
 }
 
-export { Post, isPost, User, isUserBase };
+function isUserBase(unknown: unknown): unknown is UserBase {
+  return (
+    (unknown as UserBase).username !== undefined &&
+    (unknown as UserBase).password !== undefined
+  );
+}
+
+export { Post, isPost, User, UserBase, isUserBase, UserSignup, isUserSignup };

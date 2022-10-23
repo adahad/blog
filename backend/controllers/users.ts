@@ -2,12 +2,12 @@
 import express, { NextFunction, Request, Response } from "express";
 import bcrypt from "bcrypt";
 import asyncHandler from "express-async-handler";
-import { isUserBase } from "../types";
+import { isUserSignup } from "../types";
 import User from "../models/user";
 
 const router = express.Router();
 
-router.get(
+router.post(
   "/",
   asyncHandler(
     async (request: Request, response: Response, next: NextFunction) => {
@@ -15,7 +15,7 @@ router.get(
         response.status(400).json({ error: "No request body" });
         return;
       }
-      if (!isUserBase(request.body)) {
+      if (!isUserSignup(request.body)) {
         response
           .status(400)
           .json({ error: "Username, password or name missing" });
