@@ -1,16 +1,13 @@
 interface Post {
   title: string;
   content: string;
-  id: string;
 }
 
-type PostBase = Omit<Post, "id">;
-
-function isPostBase(unknown: unknown): unknown is PostBase {
+function isPost(unknown: unknown): unknown is Post {
   return (
-    (unknown as PostBase).title !== undefined &&
-    (unknown as PostBase).content !== undefined
+    (unknown as Post).title !== undefined &&
+    (unknown as Post).content !== undefined
   );
 }
 
-export { Post, PostBase, isPostBase };
+export { Post, isPost };
