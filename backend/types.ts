@@ -3,6 +3,12 @@ interface Post {
   content: string;
 }
 
+interface User {
+  username: string;
+  passwordHash: string;
+  name: string;
+}
+
 function isPost(unknown: unknown): unknown is Post {
   return (
     (unknown as Post).title !== undefined &&
@@ -10,4 +16,4 @@ function isPost(unknown: unknown): unknown is Post {
   );
 }
 
-export { Post, isPost };
+export { Post, isPost, User };

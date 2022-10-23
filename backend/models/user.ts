@@ -1,11 +1,12 @@
 /* eslint-disable no-underscore-dangle */
 import { Schema, model } from "mongoose";
-import { Post } from "../types";
+import { User } from "../types";
 
-const postSchema = new Schema<Post>(
+const userSchema = new Schema<User>(
   {
-    title: { type: String, required: true },
-    content: { type: String, required: true },
+    username: { type: String, required: true },
+    passwordHash: { type: String, required: true },
+    name: { type: String, required: true },
   },
   {
     toJSON: {
@@ -22,6 +23,6 @@ const postSchema = new Schema<Post>(
   }
 );
 
-const PostModel = model<Post>("Post", postSchema);
+const UserModel = model<User>("User", userSchema);
 
-export default PostModel;
+export default UserModel;
