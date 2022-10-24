@@ -5,6 +5,10 @@ interface Post {
   content: string;
 }
 
+interface IdPost extends Post {
+  id: string;
+}
+
 interface User {
   username: string;
   passwordHash: string;
@@ -47,12 +51,7 @@ const isPostArray = (unknown: unknown): unknown is Post[] => {
   if (!Array.isArray(unknown)) {
     return false;
   }
-  // for (let i = 0; i < unknown.length; i++) {
-  //   if (!isPost(unknown)) {
-  //     return false;
-  //   }
-  // }
-  // return true;
+
   return unknown.every(isPost);
 };
 
@@ -65,4 +64,5 @@ export {
   UserSignup,
   isUserSignup,
   isPostArray,
+  IdPost,
 };

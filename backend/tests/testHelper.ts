@@ -1,5 +1,5 @@
 import Post from "../models/post";
-import { Post as PostType } from "../types";
+import { Post as PostType, IdPost } from "../types";
 
 const initialPosts: PostType[] = [
   {
@@ -16,7 +16,7 @@ const initialPosts: PostType[] = [
   },
 ];
 
-const getDbPosts = async () => {
+const getDbPosts = async (): Promise<IdPost[]> => {
   const posts = await Post.find({});
   return posts.map((post) => post.toJSON());
 };
