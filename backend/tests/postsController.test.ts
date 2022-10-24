@@ -3,7 +3,7 @@ import supertest from "supertest";
 import app from "../app";
 import PostModel from "../models/post";
 import * as helper from "./testHelper";
-import { isPostArray, Post, isPost, IdPost, isIdPost } from "../types";
+import { isPostArray, Post, isIdPost } from "../types";
 
 const api = supertest(app);
 
@@ -26,7 +26,7 @@ describe("GET: /", () => {
     expect(response.body).toHaveLength(testPosts.length);
 
     expect(isPostArray(response.body)).toBe(true);
-    const body: Post[] = isPostArray(response.body) ? response.body : [];
+    const body = isPostArray(response.body) ? response.body : [];
 
     for (let i = 0; i < testPosts.length; i++) {
       const foundPost = body.find(
