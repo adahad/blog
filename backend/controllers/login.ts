@@ -9,9 +9,10 @@ import User from "../models/user";
 dotenv.config();
 const router = express.Router();
 
-router.get(
+router.post(
   "/",
   asyncHandler(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async (request: Request, response: Response, next: NextFunction) => {
       if (!request.body) {
         response.status(400).json({ error: "No request body" });

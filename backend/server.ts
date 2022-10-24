@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import postsRouter from "./controllers/posts";
+import loginRouter from "./controllers/login";
+import signupRouter from "./controllers/signup";
 
 dotenv.config();
 
@@ -26,6 +28,8 @@ mongoose
 app.use(express.json());
 
 app.use("/", postsRouter);
+app.use("/login", loginRouter);
+app.use("/signup", signupRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`);
