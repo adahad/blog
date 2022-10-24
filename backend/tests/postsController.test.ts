@@ -3,7 +3,7 @@ import supertest from "supertest";
 import app from "../app";
 import PostModel from "../models/post";
 import * as helper from "./testHelper";
-import { isPostArray, Post } from "../types";
+import { isPostArray, Post, isPost, IdPost, isIdPost } from "../types";
 
 const api = supertest(app);
 
@@ -18,7 +18,7 @@ beforeEach(async () => {
 });
 
 describe("GET: /", () => {
-  test("Get all posts correctly", async () => {
+  test("All posts are returned", async () => {
     const response = await api
       .get("/")
       .expect(200)
@@ -39,13 +39,25 @@ describe("GET: /", () => {
   });
 });
 
+test("Get post", async () => {
+  const posts = await helper.getDbPosts();
+  const post = posts[0];
+  const response = await api
+    .get(`/posts/${post.id}`)
+    .expect(200)
+    .expect("Content-Type", /application\/json/);
+
+  const body = isIdPost(response.body) ? response.body : undefined;
+  expect(body).toEqual(post);
+});
+
 describe("POST: /", () => {
   const newPost: Post = {
     title: "title4",
     content: "content4",
   };
 
-  test("Post is added correctly", async () => {
+  test("Post is added", async () => {
     await api
       .post("/posts")
       .send(newPost)
@@ -63,7 +75,7 @@ describe("POST: /", () => {
 });
 
 describe("DELETE: /posts", () => {
-  test("Post is deleted correctly", async () => {
+  test("Post is deleted", async () => {
     const postsAtStart = await helper.getDbPosts();
 
     const postToDelete = postsAtStart[0];

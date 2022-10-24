@@ -32,6 +32,14 @@ const isPost = (unknown: unknown): unknown is Post => {
   );
 };
 
+const isIdPost = (unknown: unknown): unknown is IdPost => {
+  return (
+    (unknown as IdPost).title !== undefined &&
+    (unknown as IdPost).content !== undefined &&
+    (unknown as IdPost).id !== undefined
+  );
+};
+
 const isUserSignup = (unknown: unknown): unknown is UserSignup => {
   return (
     (unknown as UserSignup).username !== undefined &&
@@ -65,4 +73,5 @@ export {
   isUserSignup,
   isPostArray,
   IdPost,
+  isIdPost,
 };
