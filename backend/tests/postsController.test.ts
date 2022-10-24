@@ -62,6 +62,22 @@ describe("POST: /", () => {
   });
 });
 
+describe("DELETE: /posts", () => {
+  test("Post is deleted correctly", async () => {
+    const postsAtStart = await helper.getDbPosts();
+
+    const postToDelete = postsAtStart[0];
+    const idToDelete = postToDelete.id;
+
+    await api.delete(`/posts/${idToDelete}`).expect(204);
+
+    const postsAtEnd = await helper.getDbPosts();
+    expect(postsAtEnd).toHaveLength(postsAtStart.length - 1);
+
+    expect(postsAtEnd).not.toContainEqual(postToDelete);
+  });
+});
+
 afterAll(async () => {
   await mongoose.connection.close();
 });
