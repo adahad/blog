@@ -59,7 +59,7 @@ router.post(
 
       await newPost.save();
 
-      response.json(newPost);
+      response.status(201).json(newPost);
     }
   )
 );

@@ -19,15 +19,46 @@ beforeEach(async () => {
 
 describe("GET: /", () => {
   test("Get all posts correctly", async () => {
-    const response = await api.get("/");
+    const response = await api
+      .get("/")
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
     expect(response.body).toHaveLength(testPosts.length);
+
     expect(isPostArray(response.body)).toBe(true);
     const body: Post[] = isPostArray(response.body) ? response.body : [];
 
     for (let i = 0; i < testPosts.length; i++) {
-      expect(body[i].title).toBe(testPosts[i].title);
-      expect(body[i].content).toBe(testPosts[i].content);
+      const foundPost = body.find(
+        (post) =>
+          post.title === testPosts[i].title &&
+          post.content === testPosts[i].content
+      );
+      expect(foundPost).not.toBeUndefined();
     }
+  });
+});
+
+describe("POST: /", () => {
+  const newPost: Post = {
+    title: "title4",
+    content: "content4",
+  };
+
+  test("Post is added correctly", async () => {
+    await api
+      .post("/posts")
+      .send(newPost)
+      .expect(201)
+      .expect("Content-Type", /application\/json/);
+
+    const postsAtEnd = await helper.getDbPosts();
+    expect(postsAtEnd).toHaveLength(testPosts.length + 1);
+
+    const addedPost = postsAtEnd.find(
+      (post) => post.title === "title4" && post.content === "content4"
+    );
+    expect(addedPost).not.toBeUndefined();
   });
 });
 
