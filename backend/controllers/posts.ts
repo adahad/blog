@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import express, { NextFunction, Request, Response } from "express";
 import asyncHandler from "express-async-handler";
-import { isPost } from "../types";
+import { isPostBase } from "../types";
 import Post from "../models/post";
 
 const router = express.Router();
@@ -47,17 +47,27 @@ router.post(
         response.status(400).json({ error: "No request body" });
         return;
       }
-      if (!isPost(request.body)) {
+      if (!isPostBase(request.body)) {
         response.status(400).json({ error: "Header or title missing" });
+        return;
+      }
+
+      const user = request.user;
+      if (!user) {
+        response.status(400).json({ error: "User not logged in" });
         return;
       }
 
       const newPost = new Post({
         title: request.body.title,
         content: request.body.content,
+        // eslint-disable-next-line no-underscore-dangle
+        user: user._id,
       });
 
-      await newPost.save();
+      const savedPost = await newPost.save();
+      // eslint-disable-next-line no-underscore-dangle
+      user.posts = user.posts.concat(savedPost._id);
 
       response.status(201).json(newPost);
     }

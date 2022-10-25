@@ -1,8 +1,12 @@
 import { Types } from "mongoose";
 
-interface Post {
+interface PostBase {
   title: string;
   content: string;
+}
+
+interface Post extends PostBase {
+  user: Types.ObjectId;
 }
 
 interface IdPost extends Post {
@@ -13,7 +17,7 @@ interface User {
   username: string;
   passwordHash: string;
   name: string;
-  posts: Types.DocumentArray<Post>;
+  posts: Types.ObjectId[];
 }
 
 interface UserBase {
@@ -30,6 +34,13 @@ interface LoginResponse {
   token: string;
   username: string;
 }
+
+const isPostBase = (unknown: unknown): unknown is PostBase => {
+  return (
+    (unknown as PostBase).title !== undefined &&
+    (unknown as PostBase).content !== undefined
+  );
+};
 
 const isPost = (unknown: unknown): unknown is Post => {
   return (
@@ -90,4 +101,5 @@ export {
   isIdPost,
   LoginResponse,
   isLoginResponse,
+  isPostBase,
 };
