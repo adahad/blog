@@ -3,6 +3,7 @@ import { Types } from "mongoose";
 interface Post {
   title: string;
   content: string;
+  user: Types.ObjectId;
 }
 
 interface IdPost extends Post {
@@ -14,6 +15,10 @@ interface User {
   passwordHash: string;
   name: string;
   posts: Types.DocumentArray<Post>;
+}
+
+interface IdUser extends User {
+  _id: Types.ObjectId;
 }
 
 interface UserBase {
@@ -90,4 +95,5 @@ export {
   isIdPost,
   LoginResponse,
   isLoginResponse,
+  IdUser,
 };

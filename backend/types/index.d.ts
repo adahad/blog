@@ -1,10 +1,10 @@
-import { User } from "../types";
+import { IdUser } from "../types";
 
 declare global {
   namespace Express {
     interface Request {
       token?: string;
-      user?: User | null;
+      user?: IdUser | null;
     }
   }
 }

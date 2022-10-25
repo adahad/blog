@@ -3,6 +3,7 @@ import express, { NextFunction, Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 import { isPost } from "../types";
 import Post from "../models/post";
+import UserModel from "../models/user";
 
 const router = express.Router();
 
@@ -45,6 +46,7 @@ router.post(
     async (request: Request, response: Response, next: NextFunction) => {
       if (!request.user) {
         response.status(400).json({ error: "User not logged in" });
+        return;
       }
 
       if (!request.body) {
@@ -59,9 +61,13 @@ router.post(
       const newPost = new Post({
         title: request.body.title,
         content: request.body.content,
+        // eslint-disable-next-line no-underscore-dangle
+        user: request.user._id,
       });
 
       await newPost.save();
+      // eslint-disable-next-line no-underscore-dangle
+      const user = UserModel.findById(request.user._id);
 
       response.status(201).json(newPost);
     }
