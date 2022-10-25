@@ -25,6 +25,12 @@ interface UserSignup extends UserBase {
   name: string;
 }
 
+interface LoginResponse {
+  name: string;
+  token: string;
+  username: string;
+}
+
 const isPost = (unknown: unknown): unknown is Post => {
   return (
     (unknown as Post).title !== undefined &&
@@ -63,6 +69,14 @@ const isPostArray = (unknown: unknown): unknown is Post[] => {
   return unknown.every(isPost);
 };
 
+const isLoginResponse = (unknown: unknown): unknown is LoginResponse => {
+  return (
+    (unknown as LoginResponse).username !== undefined &&
+    (unknown as LoginResponse).name !== undefined &&
+    (unknown as LoginResponse).token !== undefined
+  );
+};
+
 export {
   Post,
   isPost,
@@ -74,4 +88,6 @@ export {
   isPostArray,
   IdPost,
   isIdPost,
+  LoginResponse,
+  isLoginResponse,
 };
