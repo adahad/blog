@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "start": "node server.ts",
-    "test": "NODE_ENV=TEST jest --verbose",
+    "test": "NODE_ENV=TEST jest --verbose --runInBand",
     "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
     "dev": "nodemon server.ts"
   },

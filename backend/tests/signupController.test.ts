@@ -3,6 +3,7 @@ import supertest from "supertest";
 import app from "../app";
 import * as helper from "./testHelper";
 import UserModel from "../models/user";
+import { UserSignup } from "../types";
 
 const api = supertest(app);
 
@@ -12,14 +13,44 @@ beforeEach(async () => {
 
 describe("When users exist", () => {
   beforeEach(async () => {
-    const initialUsers = helper.initialUsers;
-    const userObjects = initialUsers.map((user) => new UserModel(user));
-    const userPromises = userObjects.map((user) => user.save());
-    await Promise.all(userPromises);
+    await helper.initializeDbWithUsers();
+  });
+
+  test("User cannot login with existing username", async () => {
+    const newUser: UserSignup = {
+      name: "name",
+      username: "username1",
+      password: "password",
+    };
+
+    const response = await api
+      .post("/signup")
+      .send(newUser)
+      .expect(400)
+      .expect("Content-Type", /application\/json/);
+
+    expect(response.body).toEqual({ error: "Username is not unique" });
   });
 });
 
-describe("When no users exist", () => {});
+describe("When no users exist", () => {
+  test("User can signup", async () => {
+    const newUser: UserSignup = {
+      name: "name",
+      username: "username",
+      password: "password",
+    };
+
+    await api
+      .post("/signup")
+      .send(newUser)
+      .expect(201)
+      .expect("Content-Type", /application\/json/);
+
+    const foundUser = await UserModel.exists({ username: newUser.username });
+    expect(foundUser).not.toBeNull();
+  });
+});
 
 afterAll(async () => {
   await mongoose.connection.close();
