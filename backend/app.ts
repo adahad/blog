@@ -5,6 +5,7 @@ import postsRouter from "./controllers/posts";
 import loginRouter from "./controllers/login";
 import signupRouter from "./controllers/signup";
 import unknownEndpoint from "./middleware/unknownEndpoint";
+import tokenExtractor from "./middleware/tokenExtractor";
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ mongoose
   );
 
 app.use(express.json());
+app.use(tokenExtractor);
 
 app.use("/", postsRouter);
 app.use("/login", loginRouter);
