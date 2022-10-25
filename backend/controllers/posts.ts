@@ -43,6 +43,10 @@ router.post(
   "/posts",
   asyncHandler(
     async (request: Request, response: Response, next: NextFunction) => {
+      if (!request.user) {
+        response.status(400).json({ error: "User not logged in" });
+      }
+
       if (!request.body) {
         response.status(400).json({ error: "No request body" });
         return;

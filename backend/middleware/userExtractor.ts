@@ -35,7 +35,8 @@ const userExtractor = (
   }
 
   UserModel.findById(decodedToken.id)
-    .then(() => request.user)
+    // eslint-disable-next-line no-return-assign
+    .then((user) => (request.user = user))
     .catch(() => response.status(404));
   next();
 };
