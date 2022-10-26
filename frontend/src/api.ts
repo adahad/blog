@@ -1,6 +1,4 @@
 import axios from "axios";
-import { AppDispatch } from "./redux/store";
-import { userRefresh } from "./redux/userSlice";
 import { AuthResponse, isAuthResponse, Login, Signup } from "./types";
 
 const api = axios.create({ baseURL: "http://localhost:3001/" });
