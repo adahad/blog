@@ -1,7 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import bcrypt from "bcrypt";
 import asyncHandler from "express-async-handler";
-import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { isUserBase } from "../types";
 import User from "../models/user";

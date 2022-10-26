@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import asyncHandler from "express-async-handler";
 import { isUserSignup } from "../types";
 import User from "../models/user";
+import { createToken } from "../utils/token";
 
 const router = express.Router();
 
@@ -42,7 +43,11 @@ router.post(
       });
 
       const savedUser = await newUser.save();
-      response.status(201).json(savedUser);
+
+      const token = createToken(savedUser.username, savedUser._id.toString());
+      response
+        .status(201)
+        .send({ token, username: savedUser.username, name: savedUser.name });
     }
   )
 );
