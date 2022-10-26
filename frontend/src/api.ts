@@ -1,9 +1,11 @@
 import axios from "axios";
-import { isAuthResponse, Login, Signup } from "./types";
+import { AppDispatch } from "./redux/store";
+import { userRefresh } from "./redux/userSlice";
+import { AuthResponse, isAuthResponse, Login, Signup } from "./types";
 
 const api = axios.create({ baseURL: "http://localhost:3001/" });
 
-const handleAuthResponse = (response: unknown) => {
+const getAuthResponse = (response: unknown) => {
   const body = isAuthResponse(response) ? response : null;
   if (!body) {
     throw new Error("Incorrect credentials");
@@ -11,14 +13,20 @@ const handleAuthResponse = (response: unknown) => {
   return body;
 };
 
+const handleAuthResponse = (response: AuthResponse) => {
+  localStorage.setItem("username", response.username);
+  localStorage.setItem("name", response.name);
+  localStorage.setItem("token", response.token);
+};
+
 const login = async (credentials: Login) => {
   const response = await api.post("/login", credentials);
-  return handleAuthResponse(response.data);
+  return getAuthResponse(response.data);
 };
 
 const signup = async (credentials: Signup) => {
   const response = await api.post("/signup", credentials);
-  return handleAuthResponse(response.data);
+  return getAuthResponse(response.data);
 };
 
-export { login, signup };
+export { login, signup, handleAuthResponse };

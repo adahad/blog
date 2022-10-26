@@ -2,12 +2,15 @@ import { TextInput, PasswordInput, Stack, Anchor, Button } from "@mantine/core";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useStyles from "./LoginForm.styles";
-import { login } from "../../api";
+import { handleAuthResponse, login } from "../../api";
+import { useAppDispatch } from "../../hooks";
+import { userRefresh } from "../../redux/userSlice";
 
 function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const { classes } = useStyles();
 
@@ -18,9 +21,8 @@ function LoginForm() {
         username,
         password,
       });
-      localStorage.setItem("username", response.username);
-      localStorage.setItem("name", response.name);
-      localStorage.setItem("token", response.token);
+      handleAuthResponse(response);
+      dispatch(userRefresh());
       navigate("/");
       console.log("Login successful", response);
     } catch (error) {

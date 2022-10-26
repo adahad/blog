@@ -30,5 +30,5 @@ const isAuthResponse = (body: unknown): body is AuthResponse => {
   );
 };
 
-export type { Post, Login, Signup };
+export type { Post, Login, Signup, AuthResponse };
 export { isAuthResponse };
