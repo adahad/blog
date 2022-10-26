@@ -97,12 +97,32 @@ describe("POST: /", () => {
 
 describe("DELETE: /posts", () => {
   test("Post is deleted", async () => {
+    const user = await UserModel.findOne({
+      username: helper.initialUsersPlain[0].username,
+    });
+
+    if (!process.env.SECRET || !user) {
+      throw new Error("Error occurred during testing");
+    }
+
+    const token = jwt.sign(
+      {
+        username: user.username,
+        // eslint-disable-next-line no-underscore-dangle
+        id: user._id,
+      },
+      process.env.SECRET
+    );
+
     const postsAtStart = await helper.getDbPosts();
 
     const postToDelete = postsAtStart[0];
     const idToDelete = postToDelete.id;
 
-    await api.delete(`/posts/${idToDelete}`).expect(204);
+    await api
+      .delete(`/posts/${idToDelete}`)
+      .set("Authorization", `bearer ${token}`)
+      .expect(204);
 
     const postsAtEnd = await helper.getDbPosts();
     expect(postsAtEnd).toHaveLength(postsAtStart.length - 1);

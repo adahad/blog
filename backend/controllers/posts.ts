@@ -31,8 +31,18 @@ router.delete(
   "/posts/:id",
   asyncHandler(
     async (request: Request, response: Response, next: NextFunction) => {
-      const id = request.params.id;
+      const user = request.user;
+      if (!user) {
+        response.status(400).json({ error: "User not logged in" });
+        return;
+      }
 
+      const id = request.params.id;
+      const postToDelete = await Post.findById(id);
+      if (postToDelete?.user.toString() !== user._id.toString()) {
+        response.status(404).end();
+        return;
+      }
       await Post.findByIdAndDelete(id);
       response.status(204).end();
     }
