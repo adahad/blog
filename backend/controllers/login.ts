@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { isUserBase } from "../types";
 import User from "../models/user";
+import { createToken } from "../utils/token";
 
 dotenv.config();
 const router = express.Router();
@@ -40,18 +41,8 @@ router.post(
         return;
       }
 
-      const tokenInfo = {
-        username: user.username,
-        // eslint-disable-next-line no-underscore-dangle
-        id: user._id,
-      };
+      const token = createToken(user.username, user._id.toString());
 
-      const { SECRET } = process.env;
-      if (!SECRET) {
-        throw new Error("Token secret not provided");
-      }
-
-      const token = jwt.sign(tokenInfo, SECRET);
       response
         .status(200)
         .send({ token, username: user.username, name: user.name });

@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import cors from "cors";
 import postsRouter from "./controllers/posts";
 import loginRouter from "./controllers/login";
 import signupRouter from "./controllers/signup";
@@ -28,6 +29,7 @@ mongoose
     console.log("Error connecting to MongoDB", error.message)
   );
 
+app.use(cors());
 app.use(express.json());
 app.use(tokenExtractor);
 app.use(userExtractor);

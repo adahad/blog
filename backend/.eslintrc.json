@@ -28,6 +28,12 @@
     "no-console": "off",
     "no-param-reassign": "off",
     "no-plusplus": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": false
+      }
+    ]
   }
 }
