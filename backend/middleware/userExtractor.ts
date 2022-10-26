@@ -14,7 +14,7 @@ const isTokenPayload = (
   );
 };
 
-const userExtractor = (
+const userExtractor = async (
   request: Request,
   response: Response,
   next: NextFunction
@@ -34,10 +34,8 @@ const userExtractor = (
     return;
   }
 
-  UserModel.findById(decodedToken.id)
-    // eslint-disable-next-line no-return-assign
-    .then((user) => (request.user = user))
-    .catch(() => response.status(404));
+  const user = await UserModel.findById(decodedToken.id);
+  request.user = user;
   next();
 };
 

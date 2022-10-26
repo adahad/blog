@@ -1,9 +1,13 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 import PostModel from "../models/post";
 import UserModel from "../models/user";
-import { Post as PostType, IdPost, UserSignup } from "../types";
+import { PostBase, IdPost, UserSignup } from "../types";
 
-const initialPosts: PostType[] = [
+dotenv.config();
+
+const initialPosts: PostBase[] = [
   {
     title: "title1",
     content: "content1",
@@ -64,4 +68,34 @@ const initializeDbWithUsers = async () => {
   await Promise.all(users);
 };
 
-export { initialPosts, getDbPosts, initialUsersPlain, initializeDbWithUsers };
+const initializeDbWithPost = async () => {
+  await initializeDbWithUsers();
+  const user = await UserModel.findOne({
+    username: initialUsersPlain[0].username,
+  });
+
+  if (!(user && process.env.SECRET)) {
+    throw new Error("Unable to initialize DB");
+  }
+
+  const postsObjects = initialPosts.map(
+    (post) =>
+      new PostModel({
+        title: post.title,
+        content: post.content,
+        // eslint-disable-next-line no-underscore-dangle
+        user: user._id,
+      })
+  );
+
+  const postPromises = postsObjects.map((post) => post.save());
+  await Promise.all(postPromises);
+};
+
+export {
+  initialPosts,
+  getDbPosts,
+  initialUsersPlain,
+  initializeDbWithUsers,
+  initializeDbWithPost,
+};

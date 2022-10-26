@@ -1,20 +1,21 @@
 import mongoose from "mongoose";
 import supertest from "supertest";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 import app from "../app";
 import PostModel from "../models/post";
 import * as helper from "./testHelper";
 import { isPostArray, Post, isIdPost } from "../types";
+import UserModel from "../models/user";
+
+dotenv.config();
 
 const api = supertest(app);
 
 const testPosts = helper.initialPosts;
 
 beforeEach(async () => {
-  await PostModel.deleteMany({});
-
-  const postObjects = testPosts.map((post) => new PostModel(post));
-  const postPromises = postObjects.map((post) => post.save());
-  await Promise.all(postPromises);
+  await helper.initializeDbWithPost();
 });
 
 describe("GET: /", () => {
@@ -52,15 +53,35 @@ test("Get post", async () => {
 });
 
 describe("POST: /", () => {
-  const newPost: Post = {
-    title: "title4",
-    content: "content4",
-  };
-
   test("Post is added", async () => {
+    const user = await UserModel.findOne({
+      username: helper.initialUsersPlain[0].username,
+    });
+
+    if (!process.env.SECRET || !user) {
+      throw new Error("Error occurred during testing");
+    }
+
+    const newPost = {
+      title: "title4",
+      content: "content4",
+      // eslint-disable-next-line no-underscore-dangle
+      id: user._id,
+    };
+
+    const token = jwt.sign(
+      {
+        username: user.username,
+        // eslint-disable-next-line no-underscore-dangle
+        id: user._id,
+      },
+      process.env.SECRET
+    );
+
     await api
       .post("/posts")
       .send(newPost)
+      .set("Authorization", `bearer ${token}`)
       .expect(201)
       .expect("Content-Type", /application\/json/);
 
@@ -76,12 +97,32 @@ describe("POST: /", () => {
 
 describe("DELETE: /posts", () => {
   test("Post is deleted", async () => {
+    const user = await UserModel.findOne({
+      username: helper.initialUsersPlain[0].username,
+    });
+
+    if (!process.env.SECRET || !user) {
+      throw new Error("Error occurred during testing");
+    }
+
+    const token = jwt.sign(
+      {
+        username: user.username,
+        // eslint-disable-next-line no-underscore-dangle
+        id: user._id,
+      },
+      process.env.SECRET
+    );
+
     const postsAtStart = await helper.getDbPosts();
 
     const postToDelete = postsAtStart[0];
     const idToDelete = postToDelete.id;
 
-    await api.delete(`/posts/${idToDelete}`).expect(204);
+    await api
+      .delete(`/posts/${idToDelete}`)
+      .set("Authorization", `bearer ${token}`)
+      .expect(204);
 
     const postsAtEnd = await helper.getDbPosts();
     expect(postsAtEnd).toHaveLength(postsAtStart.length - 1);

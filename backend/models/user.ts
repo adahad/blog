@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import mongoose, { Schema, model } from "mongoose";
+import { Schema, model } from "mongoose";
 import { User } from "../types";
 
 const userSchema = new Schema<User>(
@@ -9,7 +9,7 @@ const userSchema = new Schema<User>(
     name: { type: String, required: true },
     posts: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "Post",
       },
     ],

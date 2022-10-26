@@ -1,10 +1,11 @@
-import { IdUser } from "../types";
+import { HydratedDocument } from "mongoose";
+import { User } from "../types";
 
 declare global {
   namespace Express {
     interface Request {
       token?: string;
-      user?: IdUser | null;
+      user?: HydratedDocument<User> | null;
     }
   }
 }

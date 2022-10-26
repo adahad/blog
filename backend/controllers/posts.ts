@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import express, { NextFunction, Request, Response } from "express";
 import asyncHandler from "express-async-handler";
-import { isPost } from "../types";
+import { isPostBase } from "../types";
 import Post from "../models/post";
 import UserModel from "../models/user";
 
@@ -32,8 +32,18 @@ router.delete(
   "/posts/:id",
   asyncHandler(
     async (request: Request, response: Response, next: NextFunction) => {
-      const id = request.params.id;
+      const user = request.user;
+      if (!user) {
+        response.status(400).json({ error: "User not logged in" });
+        return;
+      }
 
+      const id = request.params.id;
+      const postToDelete = await Post.findById(id);
+      if (postToDelete?.user.toString() !== user._id.toString()) {
+        response.status(404).end();
+        return;
+      }
       await Post.findByIdAndDelete(id);
       response.status(204).end();
     }
@@ -53,8 +63,14 @@ router.post(
         response.status(400).json({ error: "No request body" });
         return;
       }
-      if (!isPost(request.body)) {
+      if (!isPostBase(request.body)) {
         response.status(400).json({ error: "Header or title missing" });
+        return;
+      }
+
+      const user = request.user;
+      if (!user) {
+        response.status(400).json({ error: "User not logged in" });
         return;
       }
 
@@ -62,12 +78,12 @@ router.post(
         title: request.body.title,
         content: request.body.content,
         // eslint-disable-next-line no-underscore-dangle
-        user: request.user._id,
+        user: user._id,
       });
 
-      await newPost.save();
+      const savedPost = await newPost.save();
       // eslint-disable-next-line no-underscore-dangle
-      const user = UserModel.findById(request.user._id);
+      user.posts = user.posts.concat(savedPost._id);
 
       response.status(201).json(newPost);
     }
