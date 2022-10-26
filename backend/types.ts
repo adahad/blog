@@ -45,7 +45,8 @@ const isPostBase = (unknown: unknown): unknown is PostBase => {
 const isPost = (unknown: unknown): unknown is Post => {
   return (
     (unknown as Post).title !== undefined &&
-    (unknown as Post).content !== undefined
+    (unknown as Post).content !== undefined &&
+    (unknown as Post).user !== undefined
   );
 };
 
@@ -101,5 +102,6 @@ export {
   isIdPost,
   LoginResponse,
   isLoginResponse,
+  PostBase,
   isPostBase,
 };

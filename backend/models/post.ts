@@ -14,6 +14,8 @@ const postSchema = new Schema<Post>(
       transform: function (_document, returnedObject) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
         returnedObject.id = returnedObject._id.toString();
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+        returnedObject.user = returnedObject.user.toString();
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         delete returnedObject._id;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
