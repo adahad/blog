@@ -1,39 +1,61 @@
 import { TextInput, PasswordInput, Stack, Anchor, Button } from "@mantine/core";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { signup } from "../../api";
 import useStyles from "./SignupForm.styles";
 
 function SignupForm() {
   const [name, setName] = useState("");
-  const [userName, setUserName] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [verificationPassword, setVerificationPassword] = useState("");
+  const navigate = useNavigate();
 
   const { classes } = useStyles();
 
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (password !== verificationPassword) {
+      console.log("Passwords do not match");
+    }
+    try {
+      const response = await signup({
+        username,
+        password,
+        name,
+      });
+      navigate("/");
+      console.log("Signup successful", response);
+    } catch (error) {
+      console.log("Signup unsuccessful");
+    }
+  };
+
   return (
     <Stack className={classes.signup}>
-      <TextInput
-        label="Name"
-        value={name}
-        onChange={(event) => setName(event.target.value)}
-      />
-      <TextInput
-        label="Username"
-        value={userName}
-        onChange={(event) => setUserName(event.target.value)}
-      />
-      <PasswordInput
-        label="Password"
-        value={password}
-        onChange={(event) => setPassword(event.target.value)}
-      />
-      <PasswordInput
-        label="Confirm password"
-        value={verificationPassword}
-        onChange={(event) => setVerificationPassword(event.target.value)}
-      />
-      <Button>Signup</Button>
+      <form onSubmit={handleSubmit}>
+        <TextInput
+          label="Name"
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+        />
+        <TextInput
+          label="Username"
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}
+        />
+        <PasswordInput
+          label="Password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        <PasswordInput
+          label="Confirm password"
+          value={verificationPassword}
+          onChange={(event) => setVerificationPassword(event.target.value)}
+        />
+        <Button type="submit">Signup</Button>
+      </form>
 
       <Anchor component={Link} to="/login">
         Login instead
