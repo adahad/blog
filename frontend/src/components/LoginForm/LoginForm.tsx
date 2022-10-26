@@ -18,6 +18,9 @@ function LoginForm() {
         username,
         password,
       });
+      localStorage.setItem("username", response.username);
+      localStorage.setItem("name", response.name);
+      localStorage.setItem("token", response.token);
       navigate("/");
       console.log("Login successful", response);
     } catch (error) {

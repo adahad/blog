@@ -17,6 +17,7 @@ function SignupForm() {
     event.preventDefault();
     if (password !== verificationPassword) {
       console.log("Passwords do not match");
+      return;
     }
     try {
       const response = await signup({
@@ -24,6 +25,9 @@ function SignupForm() {
         password,
         name,
       });
+      localStorage.setItem("username", response.username);
+      localStorage.setItem("name", response.name);
+      localStorage.setItem("token", response.token);
       navigate("/");
       console.log("Signup successful", response);
     } catch (error) {
