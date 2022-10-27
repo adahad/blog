@@ -2,7 +2,7 @@ import { createStyles } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
   PostPage: {
-    padding: `1% 25% 0`,
+    padding: `5% 25% 0`,
     // border: `1px solid black`,
     height: "100%",
     backgroundColor: `${theme.colors.gray[2]}`,

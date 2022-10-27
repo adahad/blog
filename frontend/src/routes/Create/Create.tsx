@@ -12,6 +12,7 @@ import { useAppSelector } from "../../hooks";
 function Create() {
   const [postBody, setPostBody] = useState("");
   const [title, setTitle] = useState("");
+  const [titleError, setTitleError] = useState(false);
   const { classes } = useStyles();
   const user = useAppSelector((state) => state.user);
   const navigate = useNavigate();
@@ -20,6 +21,10 @@ function Create() {
     event.preventDefault();
     if (!user.token) {
       console.log("Must be logged in to make post");
+      return;
+    }
+    if (!title) {
+      setTitleError(true);
       return;
     }
     try {
@@ -36,13 +41,14 @@ function Create() {
   };
 
   return (
-    <form className={classes.form} onSubmit={handleSubmit}>
+    <form className={classes.body} onSubmit={handleSubmit}>
       <Stack className={classes.stack}>
         <TextInput
           label="Title"
           placeholder="Your post's title"
           value={title}
           onChange={(event) => setTitle(event.target.value)}
+          error={titleError && "Your post must have a title!"}
         />
 
         <RichTextEditor
@@ -54,7 +60,7 @@ function Create() {
 
         <Group>
           <Button type="submit">Submit!</Button>
-          <Button>Cancel</Button>
+          <Button onClick={() => navigate("/")}>Cancel</Button>
         </Group>
       </Stack>
     </form>
