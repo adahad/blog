@@ -3,6 +3,7 @@ import { RichTextEditor } from "@mantine/rte";
 import { Group, Stack, TextInput, Button } from "@mantine/core";
 // import { TypographyStylesProvider } from "@mantine/core";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useStyles from "./Create.styles";
 import { createPost } from "../../api";
 import { PostRequest } from "../../types";
@@ -13,6 +14,7 @@ function Create() {
   const [title, setTitle] = useState("");
   const { classes } = useStyles();
   const user = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -25,7 +27,8 @@ function Create() {
         title,
         content: postBody,
       };
-      await createPost(post, user.token);
+      const createdPost = await createPost(post, user.token);
+      navigate(`/posts/${createdPost.id}`);
       console.log("Post sent successfully");
     } catch (error) {
       console.log("Post sent unsuccessfully");

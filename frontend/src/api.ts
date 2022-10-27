@@ -46,6 +46,10 @@ const createPost = async (post: PostRequest, token: string) => {
   if (response.status !== 201) {
     throw new Error("Unable to create post");
   }
+  if (!isPost(response.data)) {
+    throw new Error("Server did not return created post");
+  }
+  return response.data;
 };
 
 const getPost = async (id: string) => {
