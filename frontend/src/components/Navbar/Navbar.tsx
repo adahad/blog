@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Anchor, Navbar as Sidebar } from "@mantine/core";
+import { Anchor, Navbar as Sidebar, Stack } from "@mantine/core";
 import { useState } from "react";
 import useStyles from "./Navbar.styles";
 import { useAppDispatch, useAppSelector } from "../../hooks";
@@ -19,34 +19,35 @@ function Navbar() {
   };
 
   return (
-    <Sidebar width={{ sm: 200, lg: 300, base: 100 }} className={classes.navbar}>
-      <Sidebar.Section>
-        <Anchor component={Link} to="/" className={classes.link}>
-          Home
-        </Anchor>
-
-        <Anchor component={Link} to="/create" className={classes.link}>
-          Create
-        </Anchor>
-      </Sidebar.Section>
-
-      <Sidebar.Section className={classes.footer}>
-        {user.token ? (
-          <Anchor onClick={logout} className={classes.link}>
-            Logout
+    <div>
+      <Sidebar
+        width={{ sm: 200, lg: 300, base: 100 }}
+        className={classes.navbar}
+      >
+        <Stack spacing={0}>
+          <Anchor component={Link} to="/" className={classes.link}>
+            Home
           </Anchor>
-        ) : (
-          <Anchor
-            onClick={() => setAuthOpened(!authOpened)}
-            className={classes.link}
-          >
-            Login
+          <Anchor component={Link} to="/create" className={classes.link}>
+            Create
           </Anchor>
-        )}
-      </Sidebar.Section>
 
+          {user.token ? (
+            <Anchor onClick={logout} className={classes.link}>
+              Logout
+            </Anchor>
+          ) : (
+            <Anchor
+              onClick={() => setAuthOpened(!authOpened)}
+              className={classes.link}
+            >
+              Login
+            </Anchor>
+          )}
+        </Stack>
+      </Sidebar>
       <AuthModal authOpened={authOpened} setAuthOpened={setAuthOpened} />
-    </Sidebar>
+    </div>
   );
 }
 

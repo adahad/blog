@@ -5,17 +5,16 @@ const useStyles = createStyles((theme) => ({
     borderTop: `1px solid ${theme.colors.gray[2]}`,
   },
   navbar: {
-    padding: "35vh 1vw",
+    padding: "30vh 0",
     textAlign: "center",
-    fontSize: `${theme.fontSizes.lg}`,
   },
   link: {
-    display: "block",
+    padding: theme.spacing.md,
     fontSize: theme.fontSizes.xl,
 
     "&:hover": {
       textDecoration: "none",
-      backgroundColor: theme.colors.blue[2],
+      backgroundColor: theme.colors.blue[1],
     },
   },
 }));
