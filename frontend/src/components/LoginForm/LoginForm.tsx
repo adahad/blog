@@ -31,8 +31,8 @@ function LoginForm() {
   };
 
   return (
-    <Stack className={classes.login}>
-      <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
+      <Stack spacing="xl" className={classes.login}>
         <TextInput
           label="Username"
           value={username}
@@ -44,12 +44,8 @@ function LoginForm() {
           onChange={(event) => setPassword(event.target.value)}
         />
         <Button type="submit">Login</Button>
-      </form>
-
-      <Anchor component={Link} to="/signup">
-        No account? Sign up!
-      </Anchor>
-    </Stack>
+      </Stack>
+    </form>
   );
 }
 
