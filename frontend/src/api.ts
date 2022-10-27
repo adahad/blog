@@ -1,5 +1,11 @@
 import axios from "axios";
-import { AuthResponse, isAuthResponse, Login, Signup } from "./types";
+import {
+  AuthResponse,
+  isAuthResponse,
+  Login,
+  PostRequest,
+  Signup,
+} from "./types";
 
 const api = axios.create({ baseURL: "http://localhost:3001/" });
 
@@ -27,4 +33,15 @@ const signup = async (credentials: Signup) => {
   return getAuthResponse(response.data);
 };
 
-export { login, signup, handleAuthResponse };
+const createPost = async (post: PostRequest, token: string) => {
+  const response = await api.post("/posts", post, {
+    headers: {
+      Authorization: `bearer ${token}`,
+    },
+  });
+  if (response.status !== 201) {
+    throw new Error("Unable to create post");
+  }
+};
+
+export { login, signup, handleAuthResponse, createPost };

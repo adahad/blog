@@ -22,6 +22,11 @@ interface AuthResponse {
   name: string;
 }
 
+interface PostRequest {
+  title: string;
+  content: string;
+}
+
 const isAuthResponse = (body: unknown): body is AuthResponse => {
   return (
     (body as AuthResponse).name !== undefined &&
@@ -30,5 +35,5 @@ const isAuthResponse = (body: unknown): body is AuthResponse => {
   );
 };
 
-export type { Post, Login, Signup, AuthResponse };
+export type { Post, Login, Signup, AuthResponse, PostRequest };
 export { isAuthResponse };
