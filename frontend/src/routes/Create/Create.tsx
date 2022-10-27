@@ -53,9 +53,6 @@ function Create() {
           <Button type="submit">Submit!</Button>
           <Button>Cancel</Button>
         </Group>
-        {/* <TypographyStylesProvider>
-        <div dangerouslySetInnerHTML={{ __html: text }} />
-      </TypographyStylesProvider> */}
       </Stack>
     </form>
   );

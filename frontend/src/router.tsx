@@ -5,6 +5,7 @@ import Login from "./routes/Login/Login";
 import Signup from "./routes/Signup/Signup";
 import Home from "./routes/Home/Home";
 import Create from "./routes/Create/Create";
+import PostPage from "./routes/PostPage/PostPage";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "create",
         element: <Create />,
+      },
+      {
+        path: "/posts/:postid",
+        element: <PostPage />,
       },
     ],
   },

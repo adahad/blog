@@ -54,4 +54,4 @@ const isPostArray = (unknown: unknown): unknown is Post[] => {
 };
 
 export type { Post, Login, Signup, AuthResponse, PostRequest };
-export { isAuthResponse, isPostArray };
+export { isAuthResponse, isPostArray, isPost };

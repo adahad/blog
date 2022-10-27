@@ -4,6 +4,7 @@ import { AppDispatch } from "./redux/store";
 import {
   AuthResponse,
   isAuthResponse,
+  isPost,
   isPostArray,
   Login,
   PostRequest,
@@ -47,7 +48,15 @@ const createPost = async (post: PostRequest, token: string) => {
   }
 };
 
-const getPosts = async () => {
+const getPost = async (id: string) => {
+  const response = await api.get(`/posts/${id}`);
+  if (!isPost(response.data)) {
+    throw new Error("Unable to get post");
+  }
+  return response.data;
+};
+
+const getAllPosts = async () => {
   const response = await api.get("/");
   if (!isPostArray(response.data)) {
     throw new Error("Unable to get posts");
@@ -57,9 +66,9 @@ const getPosts = async () => {
 
 const refreshPosts = () => {
   return async (dispatch: AppDispatch) => {
-    const posts = await getPosts();
+    const posts = await getAllPosts();
     dispatch(postsSet(posts));
   };
 };
 
-export { login, signup, handleAuthResponse, createPost, refreshPosts };
+export { login, signup, handleAuthResponse, createPost, refreshPosts, getPost };
