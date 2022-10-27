@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { TypographyStylesProvider } from "@mantine/core";

@@ -1,17 +1,17 @@
-import { Card } from "@mantine/core";
+import { Card, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
 
 interface PostProps {
   title: string;
-  content: string;
   id: string;
 }
 
-function Post({ title, content, id }: PostProps) {
+function Post({ title, id }: PostProps) {
+  const link = `/posts/${id}`;
+
   return (
-    <Card shadow="sm" withBorder>
-      <Link to={`/posts/${id}`}>{title}</Link>
-      <div>{content}</div>
+    <Card shadow="sm" withBorder component={Link} to={link}>
+      <Text lineClamp={1}>{title}</Text>
     </Card>
   );
 }
