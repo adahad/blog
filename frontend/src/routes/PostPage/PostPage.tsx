@@ -1,13 +1,16 @@
 /* eslint-disable react/no-danger */
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { TypographyStylesProvider } from "@mantine/core";
+import { Box, Title, TypographyStylesProvider, Stack } from "@mantine/core";
 import { getPost } from "../../api";
 import { Post } from "../../types";
+import useStyles from "./PostPage.styles";
 
 function PostPage() {
   const [post, setPost] = useState<Post>();
   const location = useLocation();
+  const { classes } = useStyles();
+
   const id = location.pathname.split("/")[2];
 
   useEffect(() => {
@@ -24,9 +27,14 @@ function PostPage() {
   }
 
   return (
-    <TypographyStylesProvider>
-      <div dangerouslySetInnerHTML={{ __html: post.content }} />
-    </TypographyStylesProvider>
+    <Box className={classes.PostPage}>
+      <Stack className={classes.PostBody}>
+        <Title>{post.title}</Title>
+        <TypographyStylesProvider>
+          <div dangerouslySetInnerHTML={{ __html: post.content }} />
+        </TypographyStylesProvider>
+      </Stack>
+    </Box>
   );
 }
 

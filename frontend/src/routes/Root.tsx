@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar/Navbar";
 
 function Root() {
   return (
-    <AppShell navbar={<Navbar />}>
+    <AppShell padding={0} navbar={<Navbar />}>
       <Outlet />
     </AppShell>
   );

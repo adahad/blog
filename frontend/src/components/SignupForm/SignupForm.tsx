@@ -1,6 +1,5 @@
 import { TextInput, PasswordInput, Stack, Anchor, Button } from "@mantine/core";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { handleAuthResponse, signup } from "../../api";
 import { useAppDispatch } from "../../hooks";
 import { userRefresh } from "../../redux/userSlice";
@@ -16,7 +15,6 @@ function SignupForm({ openLogin, closeAuth }: SignupFormProps) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [verificationPassword, setVerificationPassword] = useState("");
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const { classes } = useStyles();
@@ -35,7 +33,6 @@ function SignupForm({ openLogin, closeAuth }: SignupFormProps) {
       });
       handleAuthResponse(response);
       dispatch(userRefresh());
-      navigate("/");
       closeAuth();
       console.log("Signup successful", response);
     } catch (error) {

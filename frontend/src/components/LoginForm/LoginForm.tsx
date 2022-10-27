@@ -1,6 +1,5 @@
 import { TextInput, PasswordInput, Stack, Anchor, Button } from "@mantine/core";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import useStyles from "./LoginForm.styles";
 import { handleAuthResponse, login } from "../../api";
 import { useAppDispatch } from "../../hooks";
@@ -14,7 +13,6 @@ interface LoginFormProps {
 function LoginForm({ openSignup, closeAuth }: LoginFormProps) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const { classes } = useStyles();
@@ -28,7 +26,6 @@ function LoginForm({ openSignup, closeAuth }: LoginFormProps) {
       });
       handleAuthResponse(response);
       dispatch(userRefresh());
-      navigate("/");
       closeAuth();
       console.log("Login successful", response);
     } catch (error) {
