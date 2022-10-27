@@ -13,6 +13,7 @@ interface LoginFormProps {
 function LoginForm({ openSignup, closeAuth }: LoginFormProps) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
   const dispatch = useAppDispatch();
 
   const { classes } = useStyles();
@@ -27,9 +28,8 @@ function LoginForm({ openSignup, closeAuth }: LoginFormProps) {
       handleAuthResponse(response);
       dispatch(userRefresh());
       closeAuth();
-      console.log("Login successful", response);
     } catch (error) {
-      console.log("Login unsuccessful");
+      setLoginError("Username or password incorrect");
     }
   };
 
@@ -40,11 +40,13 @@ function LoginForm({ openSignup, closeAuth }: LoginFormProps) {
           label="Username"
           value={username}
           onChange={(event) => setUsername(event.target.value)}
+          error={!!loginError}
         />
         <PasswordInput
           label="Password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
+          error={loginError}
         />
         <Button type="submit">Login</Button>
         <Anchor onClick={openSignup}>No account? Signup!</Anchor>

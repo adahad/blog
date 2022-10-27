@@ -15,6 +15,7 @@ function SignupForm({ openLogin, closeAuth }: SignupFormProps) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [verificationPassword, setVerificationPassword] = useState("");
+  const [signupError, setSignupError] = useState("");
   const dispatch = useAppDispatch();
 
   const { classes } = useStyles();
@@ -22,7 +23,7 @@ function SignupForm({ openLogin, closeAuth }: SignupFormProps) {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (password !== verificationPassword) {
-      console.log("Passwords do not match");
+      setSignupError("Passwords do not match");
       return;
     }
     try {
@@ -34,9 +35,8 @@ function SignupForm({ openLogin, closeAuth }: SignupFormProps) {
       handleAuthResponse(response);
       dispatch(userRefresh());
       closeAuth();
-      console.log("Signup successful", response);
     } catch (error) {
-      console.log("Signup unsuccessful");
+      setSignupError("Unable to signup");
     }
   };
 
@@ -47,21 +47,25 @@ function SignupForm({ openLogin, closeAuth }: SignupFormProps) {
           label="Name"
           value={name}
           onChange={(event) => setName(event.target.value)}
+          error={!!signupError}
         />
         <TextInput
           label="Username"
           value={username}
           onChange={(event) => setUsername(event.target.value)}
+          error={!!signupError}
         />
         <PasswordInput
           label="Password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
+          error={!!signupError}
         />
         <PasswordInput
           label="Confirm password"
           value={verificationPassword}
           onChange={(event) => setVerificationPassword(event.target.value)}
+          error={signupError}
         />
         <Button type="submit">Signup</Button>
 
