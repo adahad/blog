@@ -1,6 +1,6 @@
 /* eslint-disable react/no-danger */
 import { RichTextEditor } from "@mantine/rte";
-import { Group, Stack, TextInput, Button, Box } from "@mantine/core";
+import { Group, Stack, TextInput, Button } from "@mantine/core";
 // import { TypographyStylesProvider } from "@mantine/core";
 import { useState } from "react";
 import useStyles from "./Create.styles";

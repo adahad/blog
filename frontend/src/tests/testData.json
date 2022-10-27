@@ -3,16 +3,19 @@
     {
       "title": "title1",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\nEtiam tempor orci eu lobortis elementum.",
+      "user": "1",
       "id": "a"
     },
     {
       "title": "title2",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\nIn pellentesque massa placerat duis ultricies lacus sed turpis.",
+      "user": "2",
       "id": "b"
     },
     {
       "title": "title3",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\nBlandit massa enim nec dui.",
+      "user": "1",
       "id": "c"
     }
   ]

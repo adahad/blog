@@ -1,13 +1,10 @@
 import { SimpleGrid } from "@mantine/core";
-import type { Post as IPost } from "../../types";
 import useStyles from "./Posts.styles";
 import Post from "./Post/Post";
+import { useAppSelector } from "../../hooks";
 
-interface PostsProps {
-  posts: IPost[];
-}
-
-function Posts({ posts }: PostsProps) {
+function Posts() {
+  const posts = useAppSelector((state) => state.posts);
   const { classes } = useStyles();
   return (
     <SimpleGrid className={classes.posts} cols={3} spacing="xl">

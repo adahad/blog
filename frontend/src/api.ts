@@ -1,7 +1,10 @@
 import axios from "axios";
+import { postsSet } from "./redux/postsSlice";
+import { AppDispatch } from "./redux/store";
 import {
   AuthResponse,
   isAuthResponse,
+  isPostArray,
   Login,
   PostRequest,
   Signup,
@@ -44,4 +47,19 @@ const createPost = async (post: PostRequest, token: string) => {
   }
 };
 
-export { login, signup, handleAuthResponse, createPost };
+const getPosts = async () => {
+  const response = await api.get("/");
+  if (!isPostArray(response.data)) {
+    throw new Error("Unable to get posts");
+  }
+  return response.data;
+};
+
+const refreshPosts = () => {
+  return async (dispatch: AppDispatch) => {
+    const posts = await getPosts();
+    dispatch(postsSet(posts));
+  };
+};
+
+export { login, signup, handleAuthResponse, createPost, refreshPosts };
