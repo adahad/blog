@@ -1,15 +1,13 @@
 import { Link } from "react-router-dom";
-import { Anchor, Navbar as Sidebar, Modal } from "@mantine/core";
+import { Anchor, Navbar as Sidebar } from "@mantine/core";
 import { useState } from "react";
 import useStyles from "./Navbar.styles";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { userLogout } from "../../redux/userSlice";
-import LoginForm from "../LoginForm/LoginForm";
-import SignupForm from "../SignupForm/SignupForm";
+import AuthModal from "../AuthModal/AuthModal";
 
 function Navbar() {
   const [authOpened, setAuthOpened] = useState(false);
-  const [displayLogin, setDisplayLogin] = useState(true);
   const { classes } = useStyles();
   const dispatch = useAppDispatch();
 
@@ -18,14 +16,6 @@ function Navbar() {
   const logout = () => {
     localStorage.clear();
     dispatch(userLogout());
-  };
-
-  const swapAuth = () => {
-    setDisplayLogin(!displayLogin);
-  };
-
-  const closeAuth = () => {
-    setAuthOpened(false);
   };
 
   return (
@@ -52,13 +42,7 @@ function Navbar() {
         )}
       </Sidebar.Section>
 
-      <Modal centered opened={authOpened} onClose={() => setAuthOpened(false)}>
-        {displayLogin ? (
-          <LoginForm openSignup={swapAuth} closeAuth={closeAuth} />
-        ) : (
-          <SignupForm openLogin={swapAuth} closeAuth={closeAuth} />
-        )}
-      </Modal>
+      <AuthModal authOpened={authOpened} setAuthOpened={setAuthOpened} />
     </Sidebar>
   );
 }
