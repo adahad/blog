@@ -1,12 +1,17 @@
 import { TextInput, PasswordInput, Stack, Anchor, Button } from "@mantine/core";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useStyles from "./LoginForm.styles";
 import { handleAuthResponse, login } from "../../api";
 import { useAppDispatch } from "../../hooks";
 import { userRefresh } from "../../redux/userSlice";
 
-function LoginForm() {
+interface LoginFormProps {
+  openSignup: () => void;
+  closeAuth: () => void;
+}
+
+function LoginForm({ openSignup, closeAuth }: LoginFormProps) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -24,6 +29,7 @@ function LoginForm() {
       handleAuthResponse(response);
       dispatch(userRefresh());
       navigate("/");
+      closeAuth();
       console.log("Login successful", response);
     } catch (error) {
       console.log("Login unsuccessful");
@@ -44,6 +50,7 @@ function LoginForm() {
           onChange={(event) => setPassword(event.target.value)}
         />
         <Button type="submit">Login</Button>
+        <Anchor onClick={openSignup}>No account? Signup!</Anchor>
       </Stack>
     </form>
   );

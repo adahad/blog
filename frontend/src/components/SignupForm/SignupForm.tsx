@@ -1,12 +1,17 @@
 import { TextInput, PasswordInput, Stack, Anchor, Button } from "@mantine/core";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { handleAuthResponse, signup } from "../../api";
 import { useAppDispatch } from "../../hooks";
 import { userRefresh } from "../../redux/userSlice";
 import useStyles from "./SignupForm.styles";
 
-function SignupForm() {
+interface SignupFormProps {
+  openLogin: () => void;
+  closeAuth: () => void;
+}
+
+function SignupForm({ openLogin, closeAuth }: SignupFormProps) {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -31,6 +36,7 @@ function SignupForm() {
       handleAuthResponse(response);
       dispatch(userRefresh());
       navigate("/");
+      closeAuth();
       console.log("Signup successful", response);
     } catch (error) {
       console.log("Signup unsuccessful");
@@ -38,8 +44,8 @@ function SignupForm() {
   };
 
   return (
-    <Stack className={classes.signup}>
-      <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
+      <Stack className={classes.signup}>
         <TextInput
           label="Name"
           value={name}
@@ -61,12 +67,10 @@ function SignupForm() {
           onChange={(event) => setVerificationPassword(event.target.value)}
         />
         <Button type="submit">Signup</Button>
-      </form>
 
-      <Anchor component={Link} to="/login">
-        Login instead
-      </Anchor>
-    </Stack>
+        <Anchor onClick={openLogin}>Have an account? Login instead</Anchor>
+      </Stack>
+    </form>
   );
 }
 

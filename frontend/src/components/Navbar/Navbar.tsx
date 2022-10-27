@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Anchor, Navbar as Sidebar, Modal, Stack } from "@mantine/core";
+import { Anchor, Navbar as Sidebar, Modal } from "@mantine/core";
 import { useState } from "react";
 import useStyles from "./Navbar.styles";
 import { useAppDispatch, useAppSelector } from "../../hooks";
@@ -8,7 +8,7 @@ import LoginForm from "../LoginForm/LoginForm";
 import SignupForm from "../SignupForm/SignupForm";
 
 function Navbar() {
-  const [loginOpened, setLoginOpened] = useState(false);
+  const [authOpened, setAuthOpened] = useState(false);
   const [displayLogin, setDisplayLogin] = useState(true);
   const { classes } = useStyles();
   const dispatch = useAppDispatch();
@@ -18,6 +18,14 @@ function Navbar() {
   const logout = () => {
     localStorage.clear();
     dispatch(userLogout());
+  };
+
+  const swapAuth = () => {
+    setDisplayLogin(!displayLogin);
+  };
+
+  const closeAuth = () => {
+    setAuthOpened(false);
   };
 
   return (
@@ -40,36 +48,15 @@ function Navbar() {
         {user.token ? (
           <Anchor onClick={logout}>Logout</Anchor>
         ) : (
-          <Anchor onClick={() => setLoginOpened(!loginOpened)}>Login</Anchor>
+          <Anchor onClick={() => setAuthOpened(!authOpened)}>Login</Anchor>
         )}
       </Sidebar.Section>
 
-      <Modal
-        centered
-        opened={loginOpened}
-        onClose={() => setLoginOpened(false)}
-      >
-        {/* <LoginForm /> */}
+      <Modal centered opened={authOpened} onClose={() => setAuthOpened(false)}>
         {displayLogin ? (
-          <Stack spacing="xs">
-            <LoginForm />
-            <Anchor
-              align="center"
-              onClick={() => setDisplayLogin(!displayLogin)}
-            >
-              No account? Signup
-            </Anchor>
-          </Stack>
+          <LoginForm openSignup={swapAuth} closeAuth={closeAuth} />
         ) : (
-          <Stack spacing="xs">
-            <SignupForm />
-            <Anchor
-              align="center"
-              onClick={() => setDisplayLogin(!displayLogin)}
-            >
-              Have an account? Login
-            </Anchor>
-          </Stack>
+          <SignupForm openLogin={swapAuth} closeAuth={closeAuth} />
         )}
       </Modal>
     </Sidebar>
