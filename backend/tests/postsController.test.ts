@@ -3,9 +3,8 @@ import supertest from "supertest";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import app from "../app";
-import PostModel from "../models/post";
 import * as helper from "./testHelper";
-import { isPostArray, Post, isIdPost } from "../types";
+import { isPostArray, isIdPost } from "../types";
 import UserModel from "../models/user";
 
 dotenv.config();

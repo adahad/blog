@@ -8,6 +8,7 @@ import signupRouter from "./controllers/signup";
 import unknownEndpoint from "./middleware/unknownEndpoint";
 import tokenExtractor from "./middleware/tokenExtractor";
 import userExtractor from "./middleware/userExtractor";
+import requestLogger from "./middleware/requestLogger";
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ mongoose
 
 app.use(cors());
 app.use(express.json());
+app.use(requestLogger);
 app.use(tokenExtractor);
 app.use(userExtractor);
 
