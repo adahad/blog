@@ -19,26 +19,29 @@ function Navbar() {
   };
 
   return (
-    <Sidebar width={{ sm: 200, lg: 300, base: 100 }} p="xs">
-      <Sidebar.Section grow>
-        <div>
-          <Anchor component={Link} to="/">
-            Home
-          </Anchor>
-        </div>
+    <Sidebar width={{ sm: 200, lg: 300, base: 100 }} className={classes.navbar}>
+      <Sidebar.Section>
+        <Anchor component={Link} to="/" className={classes.link}>
+          Home
+        </Anchor>
 
-        <div>
-          <Anchor component={Link} to="/create">
-            Create
-          </Anchor>
-        </div>
+        <Anchor component={Link} to="/create" className={classes.link}>
+          Create
+        </Anchor>
       </Sidebar.Section>
 
       <Sidebar.Section className={classes.footer}>
         {user.token ? (
-          <Anchor onClick={logout}>Logout</Anchor>
+          <Anchor onClick={logout} className={classes.link}>
+            Logout
+          </Anchor>
         ) : (
-          <Anchor onClick={() => setAuthOpened(!authOpened)}>Login</Anchor>
+          <Anchor
+            onClick={() => setAuthOpened(!authOpened)}
+            className={classes.link}
+          >
+            Login
+          </Anchor>
         )}
       </Sidebar.Section>
 
