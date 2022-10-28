@@ -1,7 +1,13 @@
 /* eslint-disable react/no-danger */
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Box, Title, TypographyStylesProvider, Stack } from "@mantine/core";
+import {
+  Box,
+  Title,
+  TypographyStylesProvider,
+  Stack,
+  Image,
+} from "@mantine/core";
 import { getPost } from "../../api";
 import { Post } from "../../types";
 import useStyles from "./PostPage.styles";
@@ -29,6 +35,7 @@ function PostPage() {
   return (
     <Box className={classes.PostPage}>
       <Stack className={classes.PostBody}>
+        {post.image && <Image src={post.image} />}
         <Title>{post.title}</Title>
         <TypographyStylesProvider>
           <div dangerouslySetInnerHTML={{ __html: post.content }} />
