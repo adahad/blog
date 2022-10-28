@@ -4,6 +4,7 @@ interface Post {
   content: string;
   user: string;
   id: string;
+  image?: string;
 }
 
 interface Login {
@@ -26,6 +27,7 @@ interface AuthResponse {
 interface PostRequest {
   title: string;
   content: string;
+  image?: string;
 }
 
 const isAuthResponse = (body: unknown): body is AuthResponse => {

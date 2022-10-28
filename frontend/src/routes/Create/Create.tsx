@@ -1,6 +1,14 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/no-danger */
 import { RichTextEditor } from "@mantine/rte";
-import { Group, Stack, TextInput, Button } from "@mantine/core";
+import {
+  Group,
+  Stack,
+  TextInput,
+  Button,
+  FileButton,
+  Image,
+} from "@mantine/core";
 // import { TypographyStylesProvider } from "@mantine/core";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +20,7 @@ import { useAppSelector } from "../../hooks";
 function Create() {
   const [postBody, setPostBody] = useState("");
   const [title, setTitle] = useState("");
+  const [file, setFile] = useState<File | null>(null);
   const [titleError, setTitleError] = useState(false);
   const { classes } = useStyles();
   const user = useAppSelector((state) => state.user);
@@ -32,6 +41,9 @@ function Create() {
         title,
         content: postBody,
       };
+      if (file) {
+        post.image = URL.createObjectURL(file);
+      }
       const createdPost = await createPost(post, user.token);
       navigate(`/posts/${createdPost.id}`);
       console.log("Post sent successfully");
@@ -43,11 +55,16 @@ function Create() {
   return (
     <form className={classes.body} onSubmit={handleSubmit}>
       <Stack className={classes.stack}>
+        {file && <Image src={URL.createObjectURL(file)} />}
+        <FileButton onChange={setFile}>
+          {(props) => <Button {...props}>Set header image</Button>}
+        </FileButton>
         <TextInput
           label="Title"
           placeholder="Your post's title"
           value={title}
           onChange={(event) => setTitle(event.target.value)}
+          size="lg"
           error={titleError && "Your post must have a title!"}
         />
 
