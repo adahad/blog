@@ -7,6 +7,7 @@ const postSchema = new Schema<Post>(
     title: { type: String, required: true },
     content: { type: String, required: true },
     user: { type: Schema.Types.ObjectId, required: true },
+    image: String,
   },
   {
     toJSON: {

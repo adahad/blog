@@ -3,6 +3,7 @@ import { Types } from "mongoose";
 interface PostBase {
   title: string;
   content: string;
+  image?: string;
 }
 
 interface Post extends PostBase {
