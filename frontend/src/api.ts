@@ -6,6 +6,7 @@ import {
   isAuthResponse,
   isPost,
   isPostArray,
+  isSignedURLResponse,
   Login,
   PostRequest,
   Signup,
@@ -75,4 +76,22 @@ const refreshPosts = () => {
   };
 };
 
-export { login, signup, handleAuthResponse, createPost, refreshPosts, getPost };
+const getSignedURL = async () => {
+  const response = await api.get("/s3");
+  if (!isSignedURLResponse(response.data)) {
+    throw new Error("Unable to get signed URL");
+  }
+  const URL = response.data.signedURL;
+  console.log(URL);
+  return URL;
+};
+
+export {
+  login,
+  signup,
+  handleAuthResponse,
+  createPost,
+  refreshPosts,
+  getPost,
+  getSignedURL,
+};

@@ -12,8 +12,9 @@ import {
 // import { TypographyStylesProvider } from "@mantine/core";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import useStyles from "./Create.styles";
-import { createPost } from "../../api";
+import { createPost, getSignedURL } from "../../api";
 import { PostRequest } from "../../types";
 import { useAppSelector } from "../../hooks";
 
@@ -37,14 +38,16 @@ function Create() {
       return;
     }
     try {
-      const post: PostRequest = {
+      const postRequest: PostRequest = {
         title,
         content: postBody,
       };
       if (file) {
-        post.image = URL.createObjectURL(file);
+        const signedURL = await getSignedURL();
+        await axios.put(signedURL, file);
+        postRequest.image = signedURL.split("?")[0];
       }
-      const createdPost = await createPost(post, user.token);
+      const createdPost = await createPost(postRequest, user.token);
       navigate(`/posts/${createdPost.id}`);
       console.log("Post sent successfully");
     } catch (error) {

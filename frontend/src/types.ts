@@ -30,6 +30,10 @@ interface PostRequest {
   image?: string;
 }
 
+interface SignedURLResponse {
+  signedURL: string;
+}
+
 const isAuthResponse = (body: unknown): body is AuthResponse => {
   return (
     (body as AuthResponse).name !== undefined &&
@@ -55,5 +59,16 @@ const isPostArray = (unknown: unknown): unknown is Post[] => {
   return unknown.every(isPost);
 };
 
-export type { Post, Login, Signup, AuthResponse, PostRequest };
-export { isAuthResponse, isPostArray, isPost };
+const isSignedURLResponse = (body: unknown): body is SignedURLResponse => {
+  return (body as SignedURLResponse).signedURL !== undefined;
+};
+
+export type {
+  Post,
+  Login,
+  Signup,
+  AuthResponse,
+  PostRequest,
+  SignedURLResponse,
+};
+export { isAuthResponse, isPostArray, isPost, isSignedURLResponse };

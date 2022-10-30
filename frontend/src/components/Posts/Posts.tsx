@@ -9,7 +9,7 @@ function Posts() {
   return (
     <SimpleGrid className={classes.posts} cols={3} spacing="xl">
       {posts.map((post) => (
-        <Post key={post.id} title={post.title} id={post.id} />
+        <Post key={post.id} post={post} />
       ))}
     </SimpleGrid>
   );
