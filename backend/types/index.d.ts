@@ -1,5 +1,5 @@
 import { HydratedDocument } from "mongoose";
-import { User } from "../types";
+import { User } from "../types.js";
 
 declare global {
   namespace Express {

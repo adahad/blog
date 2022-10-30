@@ -2,9 +2,9 @@ import express, { NextFunction, Request, Response } from "express";
 import bcrypt from "bcrypt";
 import asyncHandler from "express-async-handler";
 import dotenv from "dotenv";
-import { isUserBase } from "../types";
-import User from "../models/user";
-import { createToken } from "../utils/token";
+import { isUserBase } from "../types.js";
+import User from "../models/user.js";
+import { createToken } from "../utils/token.js";
 
 dotenv.config();
 const router = express.Router();

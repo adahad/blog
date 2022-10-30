@@ -1,9 +1,9 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import PostModel from "../models/post";
-import UserModel from "../models/user";
-import { PostBase, IdPost, UserSignup } from "../types";
+import PostModel from "../models/post.js";
+import UserModel from "../models/user.js";
+import { PostBase, IdPost, UserSignup } from "../types.js";
 
 dotenv.config();
 

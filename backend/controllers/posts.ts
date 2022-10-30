@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import express, { NextFunction, Request, Response } from "express";
 import asyncHandler from "express-async-handler";
-import { isPostBase } from "../types";
-import Post from "../models/post";
+import { isPostBase } from "../types.js";
+import Post from "../models/post.js";
 
 const router = express.Router();
 

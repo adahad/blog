@@ -2,13 +2,14 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
-import postsRouter from "./controllers/posts";
-import loginRouter from "./controllers/login";
-import signupRouter from "./controllers/signup";
-import unknownEndpoint from "./middleware/unknownEndpoint";
-import tokenExtractor from "./middleware/tokenExtractor";
-import userExtractor from "./middleware/userExtractor";
-import requestLogger from "./middleware/requestLogger";
+import postsRouter from "./controllers/posts.js";
+import loginRouter from "./controllers/login.js";
+import signupRouter from "./controllers/signup.js";
+import s3Router from "./controllers/s3.js";
+import unknownEndpoint from "./middleware/unknownEndpoint.js";
+import tokenExtractor from "./middleware/tokenExtractor.js";
+import userExtractor from "./middleware/userExtractor.js";
+import requestLogger from "./middleware/requestLogger.js";
 
 dotenv.config();
 
@@ -39,6 +40,7 @@ app.use(userExtractor);
 app.use("/", postsRouter);
 app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
+app.use("/s3", s3Router);
 
 app.use(unknownEndpoint);
 

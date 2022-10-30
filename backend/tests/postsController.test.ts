@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 import supertest from "supertest";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import app from "../app";
-import * as helper from "./testHelper";
-import { isPostArray, isIdPost } from "../types";
-import UserModel from "../models/user";
+import app from "../app.js";
+import * as helper from "./testHelper.js";
+import { isPostArray, isIdPost } from "../types.js";
+import UserModel from "../models/user.js";
 
 dotenv.config();
 

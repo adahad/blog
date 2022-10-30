@@ -1,10 +1,36 @@
+// {
+//   "extends": "@tsconfig/node16-strictest-esm/tsconfig.json",
+//   "compilerOptions": {
+//     "outDir": "./dist",
+//     "resolveJsonModule": true
+//   },
+//   "files": ["types/index.d.ts"],
+//   "include": ["**/*"],
+//   "exclude": ["node_modules", "**/*.spec.ts"],
+//   "ts-node": {
+//     "esm": true
+//   }
+// }
 {
-  "extends": "@tsconfig/node16/tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "resolveJsonModule": true
+    "module": "ESNext",
+    "esModuleInterop": true,
+    "target": "ESNext",
+    "moduleResolution": "NodeNext",
+    "outDir": "dist",
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "isolatedModules": false,
+    "strict": true,
+    "noImplicitAny": true,
+    "useUnknownInCatchVariables": false,
+    "inlineSourceMap": true
   },
-  "files": ["types/index.d.ts"],
+  "ts-node": {
+    "esm": true
+  },
+  "files": ["types/index.d.ts", "./app.ts", "./server.ts"],
   "include": ["**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "exclude": ["node_modules", "**/*.spec.ts"],
+  "lib": ["esnext"]
 }

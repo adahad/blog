@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import supertest from "supertest";
-import app from "../app";
-import * as helper from "./testHelper";
-import UserModel from "../models/user";
-import { UserSignup } from "../types";
+import app from "../app.js";
+import * as helper from "./testHelper.js";
+import UserModel from "../models/user.js";
+import { UserSignup } from "../types.js";
 
 const api = supertest(app);
 

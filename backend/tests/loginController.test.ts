@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import supertest from "supertest";
 import dotenv from "dotenv";
-import app from "../app";
-import { isLoginResponse, UserBase } from "../types";
-import * as helper from "./testHelper";
+import app from "../app.js";
+import { isLoginResponse, UserBase } from "../types.js";
+import * as helper from "./testHelper.js";
 
 dotenv.config();
 
