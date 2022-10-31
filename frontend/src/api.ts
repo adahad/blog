@@ -82,7 +82,6 @@ const getSignedURL = async () => {
     throw new Error("Unable to get signed URL");
   }
   const URL = response.data.signedURL;
-  console.log(URL);
   return URL;
 };
 

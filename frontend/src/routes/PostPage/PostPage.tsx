@@ -35,7 +35,7 @@ function PostPage() {
   return (
     <Box className={classes.PostPage}>
       <Stack className={classes.PostBody}>
-        {post.image && <Image src={post.image} />}
+        {post.image && <Image src={post.image} className={classes.image} />}
         <Title>{post.title}</Title>
         <TypographyStylesProvider>
           <div dangerouslySetInnerHTML={{ __html: post.content }} />

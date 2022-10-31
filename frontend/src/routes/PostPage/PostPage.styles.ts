@@ -14,6 +14,9 @@ const useStyles = createStyles((theme) => ({
     backgroundColor: "white",
     overflowWrap: "break-word",
   },
+  image: {
+    marginTop: theme.spacing.xl,
+  },
 }));
 
 export default useStyles;
