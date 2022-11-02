@@ -62,7 +62,7 @@ const getPost = async (id: string) => {
 };
 
 const getAllPosts = async () => {
-  const response = await api.get("/");
+  const response = await api.get("/posts");
   if (!isPostArray(response.data)) {
     throw new Error("Unable to get posts");
   }
@@ -85,6 +85,17 @@ const getSignedURL = async () => {
   return URL;
 };
 
+const deletePost = async (id: string, token: string) => {
+  const response = await api.delete(`/posts/${id}`, {
+    headers: {
+      Authorization: `bearer ${token}`,
+    },
+  });
+  if (response.status !== 204) {
+    throw new Error("Unable to delete post");
+  }
+};
+
 export {
   login,
   signup,
@@ -93,4 +104,5 @@ export {
   refreshPosts,
   getPost,
   getSignedURL,
+  deletePost,
 };
