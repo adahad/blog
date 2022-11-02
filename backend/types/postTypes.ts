@@ -8,6 +8,7 @@ interface PostBase {
 
 interface Post extends PostBase {
   user: Types.ObjectId;
+  likes: Types.ObjectId[];
 }
 
 interface IdPost extends Post {
