@@ -27,7 +27,7 @@ router.patch(
     }
 
     await post.updateOne({ likes: post.likes.concat(user._id) });
-    response.status(200).end();
+    response.status(200).json(post);
   }
 );
 
@@ -57,7 +57,7 @@ router.delete(
       (likesId) => likesId.toString() !== user._id.toString()
     );
     await post.updateOne({ likes: newLikes });
-    response.status(200).end();
+    response.status(200).json(post);
   }
 );
 
