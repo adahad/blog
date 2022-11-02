@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { Schema, model } from "mongoose";
-import { Post } from "../types.js";
+import type { Post } from "../types.js";
 
 const postSchema = new Schema<Post>(
   {

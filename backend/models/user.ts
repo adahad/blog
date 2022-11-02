@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { Schema, model } from "mongoose";
-import { User } from "../types.js";
+import type { User } from "../types.js";
 
 const userSchema = new Schema<User>(
   {
