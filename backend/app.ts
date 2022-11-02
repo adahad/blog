@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
 import postsRouter from "./controllers/posts.js";
+import likesRouter from "./controllers/likes.js";
 import loginRouter from "./controllers/login.js";
 import signupRouter from "./controllers/signup.js";
 import s3Router from "./controllers/s3.js";
@@ -38,6 +39,7 @@ app.use(tokenExtractor);
 app.use(userExtractor);
 
 app.use("/posts", postsRouter);
+app.use("/likes", likesRouter);
 app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
 app.use("/s3", s3Router);
