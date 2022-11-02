@@ -14,6 +14,7 @@ const s3Client = new S3Client({ region });
 
 router.get(
   "/",
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async (request: Request, response: Response, next: NextFunction) => {
     console.log("S3 Router");
 
