@@ -40,12 +40,15 @@ router.post(
       name,
     });
 
-    const savedUser = await newUser.save();
+    await newUser.save();
 
-    const token = createToken(savedUser.username, savedUser._id.toString());
-    response
-      .status(201)
-      .send({ token, username: savedUser.username, name: savedUser.name });
+    const token = createToken(newUser.username, newUser._id.toString());
+    response.status(201).send({
+      token,
+      username: newUser.username,
+      name: newUser.name,
+      id: newUser._id.toString(),
+    });
   }
 );
 
