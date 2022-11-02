@@ -37,7 +37,7 @@ app.use(requestLogger);
 app.use(tokenExtractor);
 app.use(userExtractor);
 
-app.use("/", postsRouter);
+app.use("/posts", postsRouter);
 app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
 app.use("/s3", s3Router);

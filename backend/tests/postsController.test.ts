@@ -15,10 +15,10 @@ beforeEach(async () => {
   await helper.initializeDbWithPost();
 });
 
-describe("GET: /", () => {
+describe("GET: /posts", () => {
   test("All posts are returned", async () => {
     const response = await api
-      .get("/")
+      .get("/posts")
       .expect(200)
       .expect("Content-Type", /application\/json/);
     expect(response.body).toHaveLength(testPosts.length);

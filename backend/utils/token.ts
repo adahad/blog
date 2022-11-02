@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import config from "./config";
+import config from "./config.js";
 
 interface TokenInfo {
   username: string;

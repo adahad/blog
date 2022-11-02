@@ -14,7 +14,7 @@ router.get(
 );
 
 router.get(
-  "/posts/:id",
+  "/:id",
   async (request: Request, response: Response, next: NextFunction) => {
     const id = request.params.id;
     const post = await Post.findById(id);
@@ -23,7 +23,7 @@ router.get(
 );
 
 router.delete(
-  "/posts/:id",
+  "/:id",
   async (request: Request, response: Response, next: NextFunction) => {
     const user = request.user;
     if (!user) {
@@ -43,7 +43,7 @@ router.delete(
 );
 
 router.post(
-  "/posts",
+  "/",
   async (request: Request, response: Response, next: NextFunction) => {
     if (!request.user) {
       response.status(400).json({ error: "User not logged in" });

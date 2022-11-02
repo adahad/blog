@@ -8,7 +8,6 @@ const router = express.Router();
 
 router.post(
   "/",
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async (request: Request, response: Response, next: NextFunction) => {
     if (!request.body) {
