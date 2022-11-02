@@ -3,7 +3,7 @@ import supertest from "supertest";
 import app from "../app.js";
 import * as helper from "./testHelper.js";
 import UserModel from "../models/user.js";
-import type { UserSignup } from "../types.js";
+import type { UserSignup } from "../types/userTypes.js";
 
 const api = supertest(app);
 

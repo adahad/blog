@@ -1,10 +1,8 @@
 import bcrypt from "bcrypt";
-import dotenv from "dotenv";
 import PostModel from "../models/post.js";
 import UserModel from "../models/user.js";
-import type { PostBase, IdPost, UserSignup } from "../types.js";
-
-dotenv.config();
+import type { UserSignup } from "../types/userTypes.js";
+import type { PostBase, IdPost } from "../types/postTypes.js";
 
 const initialPosts: PostBase[] = [
   {
@@ -73,7 +71,7 @@ const initializeDbWithPost = async () => {
     username: initialUsersPlain[0].username,
   });
 
-  if (!(user && process.env.SECRET)) {
+  if (!user) {
     throw new Error("Unable to initialize DB");
   }
 

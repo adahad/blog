@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import app from "../app.js";
 import * as helper from "./testHelper.js";
-import { isPostArray, isIdPost } from "../types.js";
+import { isPostArray, isIdPost } from "../types/postTypes.js";
 import UserModel from "../models/user.js";
 
 dotenv.config();

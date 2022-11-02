@@ -2,7 +2,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import bcrypt from "bcrypt";
 import asyncHandler from "express-async-handler";
-import { isUserSignup } from "../types.js";
+import { isUserSignup } from "../types/userTypes.js";
 import User from "../models/user.js";
 import { createToken } from "../utils/token.js";
 
