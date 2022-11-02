@@ -26,6 +26,7 @@ const handleAuthResponse = (response: AuthResponse) => {
   localStorage.setItem("username", response.username);
   localStorage.setItem("name", response.name);
   localStorage.setItem("token", response.token);
+  localStorage.setItem("id", response.id);
 };
 
 const login = async (credentials: Login) => {

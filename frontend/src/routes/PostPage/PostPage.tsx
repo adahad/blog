@@ -36,6 +36,8 @@ function PostPage() {
     return <div>Couldnt fetch post</div>;
   }
 
+  const displayDelete = user.id === post.user;
+
   const handleDelete = async () => {
     if (!user.token) {
       console.log("Must be logged in to delete post");
@@ -58,9 +60,11 @@ function PostPage() {
         <TypographyStylesProvider>
           <div dangerouslySetInnerHTML={{ __html: post.content }} />
         </TypographyStylesProvider>
-        <Button color="red" onClick={handleDelete}>
-          Delete
-        </Button>
+        {displayDelete && (
+          <Button color="red" onClick={handleDelete}>
+            Delete post
+          </Button>
+        )}
       </Stack>
     </Box>
   );
