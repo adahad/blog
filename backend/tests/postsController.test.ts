@@ -4,7 +4,8 @@ import jwt from "jsonwebtoken";
 import config from "../utils/config.js";
 import app from "../app.js";
 import * as helper from "./testHelper.js";
-import { isPostArray, isIdPost } from "../types/postTypes.js";
+import { isPostArray } from "../types/postTypes.js";
+import { isIdPost } from "../types/testTypes.js";
 import UserModel from "../models/user.js";
 
 const api = supertest(app);

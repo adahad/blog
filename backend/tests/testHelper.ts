@@ -2,7 +2,8 @@ import bcrypt from "bcrypt";
 import PostModel from "../models/post.js";
 import UserModel from "../models/user.js";
 import type { UserSignup } from "../types/userTypes.js";
-import type { PostBase, IdPost } from "../types/postTypes.js";
+import type { PostBase } from "../types/postTypes.js";
+import type { IdPost } from "../types/testTypes.js";
 
 const initialPosts: PostBase[] = [
   {

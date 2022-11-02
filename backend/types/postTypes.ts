@@ -11,10 +11,6 @@ interface Post extends PostBase {
   likes: Types.ObjectId[];
 }
 
-interface IdPost extends Post {
-  id: string;
-}
-
 const isPostBase = (unknown: unknown): unknown is PostBase => {
   return (
     (unknown as PostBase).title !== undefined &&
@@ -30,14 +26,6 @@ const isPost = (unknown: unknown): unknown is Post => {
   );
 };
 
-const isIdPost = (unknown: unknown): unknown is IdPost => {
-  return (
-    (unknown as IdPost).title !== undefined &&
-    (unknown as IdPost).content !== undefined &&
-    (unknown as IdPost).id !== undefined
-  );
-};
-
 const isPostArray = (unknown: unknown): unknown is Post[] => {
   if (!Array.isArray(unknown)) {
     return false;
@@ -46,5 +34,5 @@ const isPostArray = (unknown: unknown): unknown is Post[] => {
   return unknown.every(isPost);
 };
 
-export type { PostBase, Post, IdPost };
-export { isPostBase, isPost, isIdPost, isPostArray };
+export type { PostBase, Post };
+export { isPostBase, isPost, isPostArray };

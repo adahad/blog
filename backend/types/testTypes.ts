@@ -1,3 +1,5 @@
+import type { Post } from "./postTypes.js";
+
 interface LoginResponse {
   name: string;
   token: string;
@@ -12,4 +14,16 @@ const isLoginResponse = (unknown: unknown): unknown is LoginResponse => {
   );
 };
 
-export { LoginResponse, isLoginResponse };
+interface IdPost extends Post {
+  id: string;
+}
+
+const isIdPost = (unknown: unknown): unknown is IdPost => {
+  return (
+    (unknown as IdPost).title !== undefined &&
+    (unknown as IdPost).content !== undefined &&
+    (unknown as IdPost).id !== undefined
+  );
+};
+
+export { LoginResponse, isLoginResponse, IdPost, isIdPost };
