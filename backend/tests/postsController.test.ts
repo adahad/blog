@@ -63,14 +63,12 @@ describe("POST: /", () => {
     const newPost = {
       title: "title4",
       content: "content4",
-      // eslint-disable-next-line no-underscore-dangle
       id: user._id,
     };
 
     const token = jwt.sign(
       {
         username: user.username,
-        // eslint-disable-next-line no-underscore-dangle
         id: user._id,
       },
       config.SECRET
@@ -106,7 +104,6 @@ describe("DELETE: /posts", () => {
     const token = jwt.sign(
       {
         username: user.username,
-        // eslint-disable-next-line no-underscore-dangle
         id: user._id,
       },
       config.SECRET
