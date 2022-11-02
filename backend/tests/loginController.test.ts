@@ -1,12 +1,9 @@
 import mongoose from "mongoose";
 import supertest from "supertest";
-import dotenv from "dotenv";
 import app from "../app.js";
 import { isLoginResponse } from "../types/testTypes.js";
 import type { UserBase } from "../types/userTypes.js";
 import * as helper from "./testHelper.js";
-
-dotenv.config();
 
 const api = supertest(app);
 

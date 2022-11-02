@@ -1,9 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
+import config from "../utils/config.js";
 import UserModel from "../models/user.js";
-
-dotenv.config();
 
 const isTokenPayload = (
   payload: jwt.JwtPayload | string
@@ -24,11 +22,7 @@ const userExtractor = async (
     return;
   }
 
-  if (!process.env.SECRET) {
-    throw new Error("Token secret not provided");
-  }
-
-  const decodedToken = jwt.verify(request.token, process.env.SECRET);
+  const decodedToken = jwt.verify(request.token, config.SECRET);
   if (!isTokenPayload(decodedToken)) {
     response.status(401).json({ error: "token missing or invalid" });
     return;

@@ -1,7 +1,5 @@
-import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-
-dotenv.config();
+import config from "./config";
 
 interface TokenInfo {
   username: string;
@@ -14,11 +12,7 @@ const createToken = (username: string, id: string) => {
     id,
   };
 
-  if (!process.env.SECRET) {
-    throw new Error("Token secret not provided");
-  }
-
-  const token = jwt.sign(tokenInfo, process.env.SECRET);
+  const token = jwt.sign(tokenInfo, config.SECRET);
   return token;
 };
 

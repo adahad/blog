@@ -7,8 +7,6 @@ import dotenv from "dotenv";
 dotenv.config();
 const router = express.Router();
 
-dotenv.config();
-
 const region = "us-east-2";
 const bucketName = "project2627";
 

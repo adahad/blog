@@ -1,13 +1,11 @@
 import mongoose from "mongoose";
 import supertest from "supertest";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
+import config from "../utils/config.js";
 import app from "../app.js";
 import * as helper from "./testHelper.js";
 import { isPostArray, isIdPost } from "../types/postTypes.js";
 import UserModel from "../models/user.js";
-
-dotenv.config();
 
 const api = supertest(app);
 
@@ -57,7 +55,7 @@ describe("POST: /", () => {
       username: helper.initialUsersPlain[0].username,
     });
 
-    if (!process.env.SECRET || !user) {
+    if (!user) {
       throw new Error("Error occurred during testing");
     }
 
@@ -74,7 +72,7 @@ describe("POST: /", () => {
         // eslint-disable-next-line no-underscore-dangle
         id: user._id,
       },
-      process.env.SECRET
+      config.SECRET
     );
 
     await api
@@ -100,7 +98,7 @@ describe("DELETE: /posts", () => {
       username: helper.initialUsersPlain[0].username,
     });
 
-    if (!process.env.SECRET || !user) {
+    if (!user) {
       throw new Error("Error occurred during testing");
     }
 
@@ -110,7 +108,7 @@ describe("DELETE: /posts", () => {
         // eslint-disable-next-line no-underscore-dangle
         id: user._id,
       },
-      process.env.SECRET
+      config.SECRET
     );
 
     const postsAtStart = await helper.getDbPosts();
