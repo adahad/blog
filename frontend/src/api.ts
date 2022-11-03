@@ -97,6 +97,30 @@ const deletePost = async (id: string, token: string) => {
   }
 };
 
+const likePost = async (id: string, token: string) => {
+  const response = await api.patch(`/likes/${id}`, undefined, {
+    headers: {
+      Authorization: `bearer ${token}`,
+    },
+  });
+
+  if (response.status !== 200) {
+    throw new Error("Unable to like post");
+  }
+};
+
+const unlikePost = async (id: string, token: string) => {
+  const response = await api.delete(`/likes/${id}`, {
+    headers: {
+      Authorization: `bearer ${token}`,
+    },
+  });
+
+  if (response.status !== 200) {
+    throw new Error("Unable to unlike post");
+  }
+};
+
 export {
   login,
   signup,
@@ -106,4 +130,6 @@ export {
   getPost,
   getSignedURL,
   deletePost,
+  likePost,
+  unlikePost,
 };

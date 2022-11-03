@@ -8,8 +8,9 @@ import {
   Stack,
   Image,
   Button,
+  Affix,
 } from "@mantine/core";
-import { deletePost, getPost } from "../../api";
+import { deletePost, getPost, likePost, unlikePost } from "../../api";
 import { Post } from "../../types";
 import useStyles from "./PostPage.styles";
 import { useAppSelector } from "../../hooks";
@@ -52,6 +53,30 @@ function PostPage() {
     }
   };
 
+  const toggleLikes = async () => {
+    if (!user.id || !user.token) {
+      console.log("Must be logged in to like");
+      return;
+    }
+    if (!post.likes.includes(user.id)) {
+      try {
+        await likePost(post.id, user.token);
+        const response = await getPost(id);
+        setPost(response);
+      } catch (error) {
+        console.log("Unable to like post");
+      }
+    } else {
+      try {
+        await unlikePost(post.id, user.token);
+        const response = await getPost(id);
+        setPost(response);
+      } catch (error) {
+        console.log("Unable to unlike post");
+      }
+    }
+  };
+
   return (
     <Box className={classes.PostPage}>
       <Stack className={classes.PostBody}>
@@ -66,6 +91,9 @@ function PostPage() {
           </Button>
         )}
       </Stack>
+      <Affix position={{ top: "20vh", right: "10vw" }}>
+        <Button onClick={toggleLikes}>Likes: {post.likes.length}</Button>
+      </Affix>
     </Box>
   );
 }

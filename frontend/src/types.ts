@@ -5,6 +5,7 @@ interface Post {
   user: string;
   id: string;
   image?: string;
+  likes: string[];
 }
 
 interface Login {
